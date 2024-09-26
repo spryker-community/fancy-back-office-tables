@@ -22,6 +22,7 @@ use Spryker\Zed\CompanySalesConnector\Communication\Plugin\Sales\SaveCompanyUuid
 use Spryker\Zed\Currency\Communication\Plugin\Sales\CurrencyOrderExpanderPlugin;
 use Spryker\Zed\Customer\Communication\Plugin\Sales\CustomerOrderHydratePlugin;
 use Spryker\Zed\Discount\Communication\Plugin\Sales\DiscountOrderHydratePlugin;
+use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\MerchantOmsGui\Communication\Plugin\Sales\MerchantOmsStateOrderItemsTableExpanderPlugin;
 use Spryker\Zed\MerchantProfile\Communication\Plugin\Sales\MerchantDataOrderHydratePlugin;
 use Spryker\Zed\MerchantSalesOrder\Communication\Plugin\Sales\MerchantOrderDataOrderExpanderPlugin;
@@ -75,6 +76,14 @@ use Spryker\Zed\Shipment\Communication\Plugin\ShipmentOrderHydratePlugin;
 
 class SalesDependencyProvider extends SprykerSalesDependencyProvider
 {
+    public function provideCommunicationLayerDependencies(Container $container): Container
+    {
+        $container = parent::provideCommunicationLayerDependencies($container);
+        $container = $this->addGuiTableHttpDataRequestHandler($container);
+
+        return $container;
+    }
+
     /**
      * @return array<\Spryker\Zed\Sales\Dependency\Plugin\OrderExpanderPreSavePluginInterface>
      */
@@ -272,5 +281,22 @@ class SalesDependencyProvider extends SprykerSalesDependencyProvider
         return [
             new MerchantCommissionOrderPostCancelPlugin(),
         ];
+    }
+
+
+    public const SERVICE_GUI_TABLE_HTTP_DATA_REQUEST_EXECUTOR = 'gui_table_http_data_request_executor';
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addGuiTableHttpDataRequestHandler(Container $container): Container
+    {
+        $container->set(self::SERVICE_GUI_TABLE_HTTP_DATA_REQUEST_EXECUTOR, function (Container $container) {
+            return $container->getApplicationService(self::SERVICE_GUI_TABLE_HTTP_DATA_REQUEST_EXECUTOR);
+        });
+
+        return $container;
     }
 }

@@ -26,6 +26,7 @@
         "zed": "node ./node_modules/@spryker/oryx-for-zed/build",
         "zed:watch": "node ./node_modules/@spryker/oryx-for-zed/build --dev",
         "zed:production": "node ./node_modules/@spryker/oryx-for-zed/build --prod",
+        "zed:nx-build": "nx build --target=zed-build",
         "mp:build": "nx build",
         "mp:build:watch": "nx build --watch",
         "mp:build:production": "nx build --configuration production",

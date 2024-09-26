@@ -1,0 +1,7 @@
+{
+    "cli": {
+        "analytics": false
+    },
+    "defaultProject": "back-office",
+    "$schema": "./node_modules/nx/schemas/nx-schema.json"
+}

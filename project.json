@@ -1,5 +1,5 @@
 {
-    "name": "merchant-portal",
+    "name": "fancy-table",
     "$schema": "node_modules/nx/schemas/project-schema.json",
     "sourceRoot": ".",
     "projectType": "application",
@@ -14,7 +14,7 @@
                     "mergeRules": {}
                 },
                 "indexTransform": "./frontend/merchant-portal/html-transform.js",
-                "outputPath": "public/MerchantPortal/assets/js",
+                "outputPath": "public/Backoffice/assets/js",
                 "baseHref": "/assets/js/",
                 "index": "src/Pyz/Zed/ZedUi/Presentation/Components/index.html",
                 "main": "src/Pyz/Zed/ZedUi/Presentation/Components/main.ts",

@@ -1,0 +1,30 @@
+{% extends '@Sales/Layout/layout.twig' %}
+
+{% block section_title %}
+    {{ 'Overview of Orders' | trans }}
+{% endblock %}
+
+{% block action %}
+    {{ createActionButton('/sales/download', 'Download as CSV' | trans) }}
+{% endblock %}
+
+{% block content %}
+    <web-mp-offers-list
+        cloak
+        table-id="web-mp-offers-list"
+        table-config='{{ guiTableConfiguration(productOfferTableConfiguration) }}'>
+        <h1 title>{{ 'Offers' | trans }}</h1>
+
+        <web-spy-button-link action url="/product-offer-merchant-portal-gui/product-list" size="lg">{{ 'Add Offer' | trans }}</web-spy-button-link>
+    </web-mp-offers-list>
+
+{% endblock %}
+
+{% block footer_js %}
+    <script src="{{ assetsPath('js/runtime.js') }}"></script>
+    <script src="{{ assetsPath('js/polyfills.js') }}"></script>
+    <script src="{{ assetsPath('js/vendor.js') }}"></script>
+    <script src="{{ assetsPath('js/main.js') }}"></script>
+    <script src="{{ assetsPath('js/spy/merchant-portal.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
