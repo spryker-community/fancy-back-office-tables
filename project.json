@@ -1,5 +1,5 @@
 {
-    "name": "fancy-table",
+    "name": "zed-js-build",
     "$schema": "node_modules/nx/schemas/project-schema.json",
     "sourceRoot": ".",
     "projectType": "application",

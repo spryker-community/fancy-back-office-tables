@@ -18,6 +18,7 @@ use Spryker\Zed\ProductOfferMerchantPortalGui\Dependency\Facade\ProductOfferMerc
 use Spryker\Zed\ProductOfferMerchantPortalGui\Dependency\Facade\ProductOfferMerchantPortalGuiToTranslatorFacadeInterface;
 use Spryker\Zed\Store\Business\StoreFacade;
 use Spryker\Zed\Translator\Business\TranslatorFacade;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -53,10 +54,6 @@ class IndexController extends \Spryker\Zed\Sales\Communication\Controller\IndexC
      */
     public function tableDataAction(Request $request)
     {
-        $this->getFactory()->getGuiTableHttpDataRequestExecutor()->execute(
-            $request,
-            $this->getFactory()->createProductTableDataProvider(),
-            $this->getFactory()->createProductGuiTableConfigurationProvider()->getConfiguration(),
-        );
+        return new JsonResponse();
     }
 }
