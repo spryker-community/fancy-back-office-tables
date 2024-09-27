@@ -60,6 +60,7 @@ class ApplicationDependencyProvider extends SprykerApplicationDependencyProvider
             new ZedSecurityApplicationPlugin(),
             new NumberFormatterApplicationPlugin(),
             new BackofficeStoreApplicationPlugin(),
+            new GuiTableApplicationPlugin(),
         ];
 
         if (class_exists(WebProfilerApplicationPlugin::class)) {

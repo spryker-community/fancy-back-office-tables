@@ -8,6 +8,7 @@
 namespace Pyz\Zed\Sales\Communication\Controller;
 
 use Generated\Shared\Transfer\GuiTableConfigurationTransfer;
+use Pyz\Zed\Sales\Communication\ConfigurationProvider\SalesOrderTableConfigurationProvider;
 use Spryker\Shared\GuiTable\GuiTableFactory;
 use Spryker\Shared\GuiTable\GuiTableFactoryInterface;
 use Spryker\Zed\ProductOfferMerchantPortalGui\Communication\ConfigurationProvider\ProductOfferGuiTableConfigurationProvider;
@@ -20,12 +21,10 @@ use Spryker\Zed\Store\Business\StoreFacade;
 use Spryker\Zed\Translator\Business\TranslatorFacade;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @method \Spryker\Zed\Sales\Communication\SalesCommunicationFactory getFactory()
- * @method \Spryker\Zed\Sales\Business\SalesFacadeInterface getFacade()
- * @method \Spryker\Zed\Sales\Persistence\SalesQueryContainerInterface getQueryContainer()
- * @method \Spryker\Zed\Sales\Persistence\SalesRepositoryInterface getRepository()
+ * @method \Pyz\Zed\Sales\Communication\SalesCommunicationFactory getFactory()
  */
 class IndexController extends \Spryker\Zed\Sales\Communication\Controller\IndexController
 {
@@ -34,15 +33,9 @@ class IndexController extends \Spryker\Zed\Sales\Communication\Controller\IndexC
      */
     public function indexAction()
     {
-        $table = $this->getFactory()->createOrdersTable();
-
         return [
-            'orders' => $table->render(),
-
-            'productOfferTableConfiguration' =>// new GuiTableConfigurationTransfer(),
-                (new ProductOfferGuiTableConfigurationProvider(
-                    new ProductOfferMerchantPortalGuiToStoreFacadeBridge(new StoreFacade()),
-                    new ProductOfferMerchantPortalGuiToTranslatorFacadeBridge(new TranslatorFacade()),
+            'productOfferTableConfiguration' =>
+                (new SalesOrderTableConfigurationProvider(
                     new GuiTableFactory(),
                 ))
                 ->getConfiguration(),
@@ -50,10 +43,14 @@ class IndexController extends \Spryker\Zed\Sales\Communication\Controller\IndexC
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function tableDataAction(Request $request)
+    public function tableDataAction(Request $request): Response
     {
-        return new JsonResponse();
+        return $this->getFactory()->getGuiTableHttpDataRequestExecutor()->execute(
+            $request,
+            $this->getFactory()->createOrderTableDataProvider(),
+            $this->getFactory()->createSalesOrderTableConfigurationProvider()->getConfiguration(),
+        );
     }
 }

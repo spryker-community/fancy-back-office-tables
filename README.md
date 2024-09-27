@@ -5,6 +5,9 @@
 
 ## Description
 
+Merchant portal is broken caused by touched project json (we were not able to build assets for zed and merchant portal with different commands -> workaround is to [npm run mp:build] then change
+"outputPath": "public/Backoffice/assets/js", in project.json to "outputPath": "public/MerchantPortal/assets/js")
+
 Spryker B2B Marketplace Demo Shop is a collection of Spryker Marketplace B2B-specific features. It suits most projects as a starting point of development and can be used to explore Spryker.
 
 ## B2B Marketplace Demo Shop quick start
